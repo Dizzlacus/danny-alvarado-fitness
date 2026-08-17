@@ -2,9 +2,24 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
+const deployTarget = process.env.DEPLOY_TARGET === "github-pages" ? "github-pages" : "production";
+
+const deploy = {
+  // Project site: https://dizzlacus.github.io/danny-alvarado-fitness/
+  "github-pages": {
+    site: "https://dizzlacus.github.io",
+    base: "/danny-alvarado-fitness/",
+  },
+  // Cloudflare Workers / custom domain. Set SITE_URL when the live domain is ready.
+  production: {
+    site: process.env.SITE_URL || "https://danny-alvarado-fitness.workers.dev",
+    base: "/",
+  },
+}[deployTarget];
+
 export default defineConfig({
-  // Update to your workers.dev or custom domain after the first Cloudflare deploy
-  site: "https://danny-alvarado-fitness.workers.dev",
+  site: deploy.site,
+  base: deploy.base,
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

@@ -8,6 +8,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:pages": "DEPLOY_TARGET=github-pages astro build",
     "preview": "astro preview",
     "preview:cf": "astro build && wrangler dev --config wrangler.jsonc",
     "deploy": "astro build && wrangler deploy --config wrangler.jsonc --no-autoconfig",

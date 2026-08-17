@@ -17,9 +17,22 @@ pnpm run preview     # preview the production build locally
 pnpm run preview:cf  # build + preview via Wrangler (Cloudflare)
 ```
 
-## Deploy (Cloudflare Workers + GitHub)
+## Deploy
 
-Deploys via Cloudflare Workers Builds connected to this GitHub repo.
+`astro.config.mjs` picks URLs from `DEPLOY_TARGET`:
+
+| Target | When | `site` | `base` |
+|--------|------|--------|--------|
+| `github-pages` | GitHub Actions on `main` | `https://dizzlacus.github.io` | `/danny-alvarado-fitness/` |
+| `production` (default) | Cloudflare / `pnpm run build` | `SITE_URL` or `https://danny-alvarado-fitness.workers.dev` | `/` |
+
+Preview the GitHub Pages build locally with `pnpm run build:pages`.
+
+### GitHub Pages (preview)
+
+Repo **Settings → Pages → Source** must be **GitHub Actions** (not “Deploy from a branch”). Pushes to `main` run `.github/workflows/deploy-pages.yml`.
+
+### Cloudflare Workers (live)
 
 In **Workers & Pages → your project → Settings → Builds**:
 
@@ -28,10 +41,9 @@ In **Workers & Pages → your project → Settings → Builds**:
 | Build command | `pnpm run build` |
 | Deploy command | `npx wrangler deploy --config wrangler.jsonc --no-autoconfig` |
 | Root directory | `/` (repo root) |
+| `SITE_URL` (optional) | Final custom domain, e.g. `https://www.example.com` |
 
 `--no-autoconfig` is required: Wrangler otherwise detects Astro and tries to install `@astrojs/cloudflare` (SSR) even when `wrangler.jsonc` already defines a static assets deploy.
-
-After the first successful deploy, update `site` in `astro.config.mjs` to your live `*.workers.dev` or custom domain URL so sitemap and Open Graph URLs are correct.
 
 ## Customisation
 
