@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import poster from "../assets/images/sled-push.jpg";
+
+const videoSrc = `${import.meta.env.BASE_URL}videos/hero.mp4`;
 ---
 
 <section id="home" class="relative isolate w-full max-w-full overflow-hidden bg-brand-black min-h-[100svh]">
@@ -23,7 +25,7 @@ import poster from "../assets/images/sled-push.jpg";
       webkit-playsinline
       preload="auto"
     >
-      <source src="/videos/hero.mp4" type="video/mp4" />
+      <source src={videoSrc} type="video/mp4" />
     </video>
     <div class="hero-media-overlay absolute inset-0 z-[1] pointer-events-none"></div>
   </div>
