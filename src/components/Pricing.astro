@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import { pricingGroups } from "../data/pricing";
+import session from "../assets/images/strength.jpg";
+
+let serviceIndex = 0;
+---
+
+<section id="pricing" class="bg-brand-black w-full max-w-full overflow-hidden pb-[var(--section-space)]">
+  <div class="site-container w-full">
+    <div class="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-start w-full min-w-0">
+      <div class="reveal md:sticky md:top-[calc(var(--header-offset)+1.5rem)]">
+        <div class="price-menu-visual relative aspect-[3/4] w-full max-w-[520px] bg-brand-black overflow-hidden">
+          <Image
+            src={session}
+            alt="Danny Alvarado during a strength session"
+            widths={[400, 640, 960]}
+            sizes="(min-width: 768px) 520px, calc(100vw - 3rem)"
+            loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover object-[center_15%]"
+          />
+        </div>
+      </div>
+
+      <div class="min-w-0">
+        <div class="reveal section-heading mb-8 md:mb-10">
+          <p class="text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/50 mb-3">03 / Pricing</p>
+          <h2 class="font-display text-4xl md:text-6xl font-semibold text-white leading-tight mb-4">The Sessions</h2>
+          <p class="text-white/65 max-w-md leading-relaxed text-sm md:text-base">
+            Guide prices — confirm the exact quote when you book. Figures are TBD until the offer is locked.
+          </p>
+        </div>
+
+        <div class="space-y-10 md:space-y-12">
+          {
+            pricingGroups.map((group, groupIndex) => (
+              <div class:list={["reveal", groupIndex === 1 && "reveal-delay-1"]}>
+                <div class="price-group-head mb-4 md:mb-5">
+                  <p class="font-display text-xl md:text-2xl font-semibold text-white tracking-wide">
+                    {group.label}
+                  </p>
+                  <span class="price-group-rule" aria-hidden="true"></span>
+                </div>
+
+                <ul class="price-list">
+                  {group.items.map((item) => {
+                    serviceIndex += 1;
+                    const indexLabel = String(serviceIndex).padStart(2, "0");
+                    return (
+                      <li class="price-row">
+                        <div class="flex items-baseline gap-3 md:gap-4">
+                          <span class="price-index shrink-0" aria-hidden="true">
+                            {indexLabel}
+                          </span>
+                          <div class="min-w-0 flex-1">
+                          <div class="flex items-baseline justify-between gap-4">
+                            <p class="text-sm md:text-base font-medium text-white">{item.name}</p>
+                            <p class="price-amount shrink-0 font-display tabular-nums">{item.price}</p>
+                          </div>
+                            {"note" in item && item.note ? (
+                              <p class="text-white/50 text-xs md:text-sm leading-relaxed mt-1.5">{item.note}</p>
+                            ) : null}
+                          </div>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

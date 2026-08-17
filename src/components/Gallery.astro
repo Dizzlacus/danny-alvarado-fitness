@@ -1,0 +1,91 @@
+---
+import { Image, getImage } from "astro:assets";
+import { galleryItems } from "../data/gallery";
+
+const totalLabel = String(galleryItems.length).padStart(2, "0");
+const tiles = await Promise.all(
+  galleryItems.map(async (item) => ({
+    ...item,
+    lightboxSrc: (await getImage({ src: item.src, width: 1600 })).src,
+  })),
+);
+---
+
+<section id="gallery" class="bg-brand-black w-full max-w-full relative pt-[var(--section-space)] pb-[var(--section-space)]">
+  <div class="gallery-rail" aria-hidden="true">
+    <div class="gallery-wordmark-pin">
+      <div class="gallery-wordmark font-display text-sm">
+        <span>HYROX</span>
+        <span>TRAINING</span>
+      </div>
+      <div class="gallery-scroll-track">
+        <div id="scroll-progress" class="gallery-scroll-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-container relative">
+    <div class="reveal section-heading flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-10">
+      <div>
+        <p class="text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/50 mb-3">01 / Training</p>
+        <h2 class="font-display text-4xl md:text-6xl font-semibold text-white shrink-0">Training</h2>
+      </div>
+      <p class="text-white/65 text-sm md:text-base md:text-right md:max-w-md leading-relaxed">
+        Station work, running, and race-day prep — the sessions that get you to the start line ready.
+      </p>
+    </div>
+
+    <div class="relative site-bleed-right reveal overflow-x-clip">
+      <div id="gallery-track" class="flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory pb-2">
+        {
+          tiles.map((item) => (
+            <button
+              type="button"
+              class="gallery-tile shrink-0 w-[78vw] sm:w-[48vw] md:w-[38vw] lg:w-[32vw] max-w-[480px] overflow-hidden rounded-none aspect-[4/5] bg-brand-black cursor-pointer p-0 border-0 text-left appearance-none"
+              data-gallery-src={item.lightboxSrc}
+              data-gallery-alt={item.alt}
+              aria-label={`View ${item.caption} photo`}
+            >
+              <Image
+                src={item.src}
+                alt=""
+                widths={[320, 480, 640, 960]}
+                sizes="(min-width: 1024px) 32vw, (min-width: 768px) 38vw, (min-width: 640px) 48vw, 78vw"
+                loading="lazy"
+                class="h-full w-full object-cover"
+              />
+              <span class="gallery-caption">{item.caption}</span>
+            </button>
+          ))
+        }
+        <div class="site-scroll-end" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-4 mt-8">
+      <button
+        id="gallery-prev"
+        type="button"
+        class="w-10 h-10 flex items-center justify-center text-white/80 hover:text-brand-yellow transition-colors cursor-pointer"
+        aria-label="Previous training tile"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <button
+        id="gallery-next"
+        type="button"
+        class="w-10 h-10 flex items-center justify-center text-white/80 hover:text-brand-yellow transition-colors cursor-pointer"
+        aria-label="Next training tile"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+      <p id="gallery-index" class="ml-2 text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/50" aria-live="polite">
+        01 — {totalLabel}
+      </p>
+    </div>
+  </div>
+</section>

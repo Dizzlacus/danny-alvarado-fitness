@@ -1,0 +1,17 @@
+---
+import { business, businessInstagram } from "../data/business";
+---
+
+<footer class="border-t border-white/10 pb-10 pt-10 text-center text-sm text-white/60 bg-brand-black w-full max-w-full overflow-hidden">
+  <div class="site-container">
+    <p class="mb-3">&copy; <span id="footer-year"></span> {business.name}. All rights reserved.</p>
+    <p>
+      <a
+        href={businessInstagram.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-brand-yellow transition-colors">{businessInstagram.handle}</a
+      >
+    </p>
+  </div>
+</footer>

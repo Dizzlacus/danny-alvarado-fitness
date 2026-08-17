@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+import { business } from "../data/business";
+import coach from "../assets/images/coach.jpg";
+---
+
+<section id="about" class="bg-brand-black w-full max-w-full overflow-hidden pb-[var(--section-space)]">
+  <div class="site-container w-full">
+    <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center w-full min-w-0">
+      <div class="reveal">
+        <p class="text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/50 mb-3">02 / About</p>
+        <h2 class="font-display text-4xl md:text-6xl font-semibold text-white mb-6">About the coach</h2>
+        <p class="text-white/65 leading-relaxed mb-4 text-sm md:text-base">
+          Danny Alvarado Fitness is Hyrox-focused personal training — race format, station standards, and the engine work that holds it together.
+        </p>
+        <p class="text-white/65 leading-relaxed mb-8 text-sm md:text-base">
+          Whether you are lining up for a first race or chasing a faster finish, sessions are built around your current fitness and a clear plan. Placeholder copy — swap in the real story.
+        </p>
+        <div class="space-y-6">
+          <div>
+            <p class="text-sm font-medium text-white mb-1">{business.coach.name}</p>
+            <p class="text-white/65 text-sm leading-relaxed mb-2">{business.coach.bio}</p>
+            <a
+              href={business.coach.instagram.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm text-brand-yellow hover:text-white transition-colors"
+            >
+              {business.coach.instagram.handle}
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="relative aspect-[3/4] md:aspect-[4/5] w-full max-w-[450px] md:ml-auto bg-brand-black overflow-hidden">
+          <Image
+            src={coach}
+            alt="Danny Alvarado, Hyrox coach"
+            widths={[400, 600, 900]}
+            sizes="(min-width: 768px) 450px, calc(100vw - 3rem)"
+            loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover object-top"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
