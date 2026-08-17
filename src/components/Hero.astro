@@ -1,8 +1,10 @@
 ---
-import { Image } from "astro:assets";
-import poster from "../assets/images/sled-push.jpg";
+import { Image, getImage } from "astro:assets";
+import poster from "../assets/images/hero-poster.jpg";
 
 const videoSrc = `${import.meta.env.BASE_URL}videos/hero.mp4`;
+const videoSrcMobile = `${import.meta.env.BASE_URL}videos/hero-mobile.mp4`;
+const posterImage = await getImage({ src: poster, width: 1280, format: "jpg" });
 ---
 
 <section id="home" class="relative isolate w-full max-w-full overflow-hidden bg-brand-black min-h-[100svh]">
@@ -18,15 +20,17 @@ const videoSrc = `${import.meta.env.BASE_URL}videos/hero.mp4`;
     />
     <video
       class="hero-video absolute inset-0 h-full w-full object-cover"
+      poster={posterImage.src}
+      data-src-desktop={videoSrc}
+      data-src-mobile={videoSrcMobile}
       autoplay
       muted
       loop
       playsinline
       webkit-playsinline
       preload="auto"
-    >
-      <source src={videoSrc} type="video/mp4" />
-    </video>
+      disablepictureinpicture
+    ></video>
     <div class="hero-media-overlay absolute inset-0 z-[1] pointer-events-none"></div>
   </div>
 

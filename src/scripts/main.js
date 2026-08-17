@@ -62,8 +62,17 @@
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  function syncPlayback() {
-    video.muted = true;
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
+
+  const preferMobile = window.matchMedia("(max-width: 767px)").matches;
+  const nextSrc = preferMobile ? video.dataset.srcMobile : video.dataset.srcDesktop;
+  if (nextSrc) video.src = nextSrc;
+
+  function tryPlay() {
     if (reduceMotion.matches) {
       video.pause();
       return;
@@ -72,8 +81,23 @@
     if (playAttempt) playAttempt.catch(() => {});
   }
 
-  syncPlayback();
-  reduceMotion.addEventListener("change", syncPlayback);
+  tryPlay();
+  video.addEventListener("loadeddata", tryPlay);
+  video.addEventListener("canplay", tryPlay);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") tryPlay();
+  });
+  window.addEventListener("pageshow", tryPlay);
+
+  const unlock = () => {
+    tryPlay();
+    window.removeEventListener("touchstart", unlock);
+    window.removeEventListener("pointerdown", unlock);
+  };
+  window.addEventListener("touchstart", unlock, { passive: true });
+  window.addEventListener("pointerdown", unlock);
+
+  reduceMotion.addEventListener("change", tryPlay);
 })();
 
 (function () {
