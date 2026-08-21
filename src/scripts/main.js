@@ -70,7 +70,9 @@
 
   const preferMobile = window.matchMedia("(max-width: 767px)").matches;
   const nextSrc = preferMobile ? video.dataset.srcMobile : video.dataset.srcDesktop;
+  const nextPoster = preferMobile ? video.dataset.posterMobile : video.dataset.posterDesktop;
   if (nextSrc) video.src = nextSrc;
+  if (nextPoster) video.poster = nextPoster;
 
   function tryPlay() {
     if (reduceMotion.matches) {

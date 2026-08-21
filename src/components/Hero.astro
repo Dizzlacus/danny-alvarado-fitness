@@ -2,15 +2,26 @@
 import { Image, getImage } from "astro:assets";
 import { business } from "../data/business";
 import PlaygroundWordmark from "./PlaygroundWordmark.astro";
-import poster from "../assets/images/hero-run.png";
+import poster from "../assets/images/hero-poster.jpg";
+import posterMobile from "../assets/images/hero-poster-mobile.jpg";
 
 const videoSrc = `${import.meta.env.BASE_URL}videos/hero.mp4`;
 const videoSrcMobile = `${import.meta.env.BASE_URL}videos/hero-mobile.mp4`;
 const posterImage = await getImage({ src: poster, width: 1280, format: "jpg" });
+const posterImageMobile = await getImage({ src: posterMobile, width: 960, format: "jpg" });
 ---
 
 <section id="home" class="relative isolate w-full max-w-full overflow-hidden bg-brand-black min-h-[100svh]">
   <div class="hero-media absolute inset-0" aria-hidden="true">
+    <Image
+      src={posterMobile}
+      alt=""
+      widths={[640, 960]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="absolute inset-0 h-full w-full object-cover md:hidden"
+    />
     <Image
       src={poster}
       alt=""
@@ -18,11 +29,13 @@ const posterImage = await getImage({ src: poster, width: 1280, format: "jpg" });
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
-      class="absolute inset-0 h-full w-full object-cover"
+      class="absolute inset-0 hidden h-full w-full object-cover md:block"
     />
     <video
       class="hero-video absolute inset-0 h-full w-full object-cover"
       poster={posterImage.src}
+      data-poster-desktop={posterImage.src}
+      data-poster-mobile={posterImageMobile.src}
       data-src-desktop={videoSrc}
       data-src-mobile={videoSrcMobile}
       autoplay
