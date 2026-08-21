@@ -23,7 +23,7 @@ pnpm run preview:cf  # build + preview via Wrangler (Cloudflare)
 
 | Target | When | `site` | `base` |
 |--------|------|--------|--------|
-| `github-pages` | GitHub Actions on `main` | `https://dizzlacus.github.io` | `/danny-alvarado-fitness/` |
+| `github-pages` | GitHub Actions on `main` | `https://dizzlacus.github.io` | `/the-playground/` |
 | `production` (default) | Cloudflare / `pnpm run build` | `SITE_URL` or `https://the-playground.workers.dev` | `/` |
 
 Preview the GitHub Pages build locally with `pnpm run build:pages`.
@@ -32,7 +32,7 @@ Preview the GitHub Pages build locally with `pnpm run build:pages`.
 
 Repo **Settings → Pages → Source** must be **GitHub Actions** (not “Deploy from a branch”). Pushes to `main` run `.github/workflows/deploy-pages.yml`.
 
-The GitHub Pages `base` path still matches the repository name (`danny-alvarado-fitness`). Rename the repo before changing that path.
+The GitHub Pages `base` path matches the repository name (`the-playground`).
 
 ### Cloudflare Workers (live)
 

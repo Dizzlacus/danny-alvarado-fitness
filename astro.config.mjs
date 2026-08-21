@@ -5,10 +5,10 @@ import tailwindcss from "@tailwindcss/vite";
 const deployTarget = process.env.DEPLOY_TARGET === "github-pages" ? "github-pages" : "production";
 
 const deploy = {
-  // Project site: https://dizzlacus.github.io/danny-alvarado-fitness/
+  // Project site: https://dizzlacus.github.io/the-playground/
   "github-pages": {
     site: "https://dizzlacus.github.io",
-    base: "/danny-alvarado-fitness/",
+    base: "/the-playground/",
   },
   // Cloudflare Workers / custom domain. Set SITE_URL when the live domain is ready.
   production: {
