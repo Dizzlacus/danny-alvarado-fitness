@@ -152,7 +152,7 @@
   const sliders = document.querySelectorAll("[data-ba-slider]");
   if (!sliders.length) return;
 
-  const SLOP = 10;
+  const SLOP = 8;
 
   function clamp(value) {
     return Math.min(100, Math.max(0, value));
@@ -162,10 +162,11 @@
     const input = root.querySelector(".ba-slider-range");
     if (!input) return;
 
-    let pointerId = null;
+    let dragging = false;
+    let axis = null;
     let startX = 0;
     let startY = 0;
-    let axis = null;
+    let mouseId = null;
 
     function apply(value) {
       const next = clamp(Number(value));
@@ -173,56 +174,69 @@
       input.value = String(next);
     }
 
-    function fromPointer(event) {
+    function posFromClientX(clientX) {
       const rect = root.getBoundingClientRect();
       if (!rect.width) return Number(input.value);
-      return ((event.clientX - rect.left) / rect.width) * 100;
-    }
-
-    function resetPointer() {
-      pointerId = null;
-      axis = null;
+      return ((clientX - rect.left) / rect.width) * 100;
     }
 
     apply(input.value);
-
     input.addEventListener("input", () => apply(input.value));
     input.addEventListener("change", () => apply(input.value));
 
     root.addEventListener("pointerdown", (event) => {
-      if (event.pointerType === "mouse" && event.button !== 0) return;
-      pointerId = event.pointerId;
-      startX = event.clientX;
-      startY = event.clientY;
-      axis = event.pointerType === "mouse" ? "x" : null;
-      if (axis === "x") {
-        event.preventDefault();
-        root.setPointerCapture(event.pointerId);
-        apply(fromPointer(event));
-      }
+      if (event.pointerType !== "mouse" || event.button !== 0) return;
+      event.preventDefault();
+      mouseId = event.pointerId;
+      root.setPointerCapture(event.pointerId);
+      apply(posFromClientX(event.clientX));
     });
 
     root.addEventListener("pointermove", (event) => {
-      if (event.pointerId !== pointerId) return;
-
-      if (axis === null) {
-        const dx = event.clientX - startX;
-        const dy = event.clientY - startY;
-        if (Math.abs(dx) < SLOP && Math.abs(dy) < SLOP) return;
-        axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
-        if (axis === "y") {
-          resetPointer();
-          return;
-        }
-        root.setPointerCapture(event.pointerId);
-      }
-
-      if (axis !== "x") return;
-      apply(fromPointer(event));
+      if (event.pointerType !== "mouse") return;
+      if (!root.hasPointerCapture(event.pointerId) || event.pointerId !== mouseId) return;
+      apply(posFromClientX(event.clientX));
     });
 
-    root.addEventListener("pointerup", resetPointer);
-    root.addEventListener("pointercancel", resetPointer);
-    root.addEventListener("lostpointercapture", resetPointer);
+    root.addEventListener("pointerup", (event) => {
+      if (event.pointerId === mouseId) mouseId = null;
+    });
+
+    root.addEventListener("touchstart", (event) => {
+      if (event.touches.length !== 1) return;
+      const touch = event.touches[0];
+      dragging = true;
+      axis = null;
+      startX = touch.clientX;
+      startY = touch.clientY;
+    });
+
+    root.addEventListener(
+      "touchmove",
+      (event) => {
+        if (!dragging || event.touches.length !== 1) return;
+        const touch = event.touches[0];
+
+        if (axis === null) {
+          const dx = touch.clientX - startX;
+          const dy = touch.clientY - startY;
+          if (Math.abs(dx) < SLOP && Math.abs(dy) < SLOP) return;
+          axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+        }
+
+        if (axis !== "x") return;
+        event.preventDefault();
+        apply(posFromClientX(touch.clientX));
+      },
+      { passive: false }
+    );
+
+    function endTouch() {
+      dragging = false;
+      axis = null;
+    }
+
+    root.addEventListener("touchend", endTouch);
+    root.addEventListener("touchcancel", endTouch);
   });
 })();
