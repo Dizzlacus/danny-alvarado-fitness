@@ -152,6 +152,8 @@
   const sliders = document.querySelectorAll("[data-ba-slider]");
   if (!sliders.length) return;
 
+  const SLOP = 10;
+
   function clamp(value) {
     return Math.min(100, Math.max(0, value));
   }
@@ -159,6 +161,11 @@
   sliders.forEach((root) => {
     const input = root.querySelector(".ba-slider-range");
     if (!input) return;
+
+    let pointerId = null;
+    let startX = 0;
+    let startY = 0;
+    let axis = null;
 
     function apply(value) {
       const next = clamp(Number(value));
@@ -172,6 +179,11 @@
       return ((event.clientX - rect.left) / rect.width) * 100;
     }
 
+    function resetPointer() {
+      pointerId = null;
+      axis = null;
+    }
+
     apply(input.value);
 
     input.addEventListener("input", () => apply(input.value));
@@ -179,14 +191,38 @@
 
     root.addEventListener("pointerdown", (event) => {
       if (event.pointerType === "mouse" && event.button !== 0) return;
-      event.preventDefault();
-      root.setPointerCapture(event.pointerId);
-      apply(fromPointer(event));
+      pointerId = event.pointerId;
+      startX = event.clientX;
+      startY = event.clientY;
+      axis = event.pointerType === "mouse" ? "x" : null;
+      if (axis === "x") {
+        event.preventDefault();
+        root.setPointerCapture(event.pointerId);
+        apply(fromPointer(event));
+      }
     });
 
     root.addEventListener("pointermove", (event) => {
-      if (!root.hasPointerCapture(event.pointerId)) return;
+      if (event.pointerId !== pointerId) return;
+
+      if (axis === null) {
+        const dx = event.clientX - startX;
+        const dy = event.clientY - startY;
+        if (Math.abs(dx) < SLOP && Math.abs(dy) < SLOP) return;
+        axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+        if (axis === "y") {
+          resetPointer();
+          return;
+        }
+        root.setPointerCapture(event.pointerId);
+      }
+
+      if (axis !== "x") return;
       apply(fromPointer(event));
     });
+
+    root.addEventListener("pointerup", resetPointer);
+    root.addEventListener("pointercancel", resetPointer);
+    root.addEventListener("lostpointercapture", resetPointer);
   });
 })();

@@ -334,7 +334,8 @@ html {
   aspect-ratio: 3 / 4;
   overflow: hidden;
   background-color: var(--color-brand-black);
-  touch-action: none;
+  /* Let the page scroll vertically; JS only takes over for sideways drags */
+  touch-action: pan-y;
   user-select: none;
   cursor: ew-resize;
 }
