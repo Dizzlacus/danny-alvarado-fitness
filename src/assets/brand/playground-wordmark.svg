@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 160" role="img" aria-labelledby="playground-title playground-tag">
+  <title id="playground-title">The Playground</title>
+  <desc id="playground-tag">Lift, run, play</desc>
+  <text
+    x="430"
+    y="78"
+    text-anchor="middle"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="2"
+    stroke-linejoin="miter"
+    font-family="'Bebas Neue', 'Arial Narrow', sans-serif"
+    font-size="72"
+    letter-spacing="16"
+  >PLAYGROUND</text>
+  <line x1="40" y1="124" x2="292" y2="124" stroke="#ffffff" stroke-width="2" />
+  <text
+    x="430"
+    y="130"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="'Bebas Neue', 'Arial Narrow', sans-serif"
+    font-size="14"
+    letter-spacing="7"
+  >LIFT-RUN-PLAY</text>
+  <line x1="568" y1="124" x2="820" y2="124" stroke="#ffffff" stroke-width="2" />
+</svg>

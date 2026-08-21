@@ -12,7 +12,7 @@ const deploy = {
   },
   // Cloudflare Workers / custom domain. Set SITE_URL when the live domain is ready.
   production: {
-    site: process.env.SITE_URL || "https://danny-alvarado-fitness.workers.dev",
+    site: process.env.SITE_URL || "https://the-playground.workers.dev",
     base: "/",
   },
 }[deployTarget];

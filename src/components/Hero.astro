@@ -1,6 +1,8 @@
 ---
 import { Image, getImage } from "astro:assets";
-import poster from "../assets/images/hero-poster.jpg";
+import { business } from "../data/business";
+import PlaygroundWordmark from "./PlaygroundWordmark.astro";
+import poster from "../assets/images/hero-run.png";
 
 const videoSrc = `${import.meta.env.BASE_URL}videos/hero.mp4`;
 const videoSrcMobile = `${import.meta.env.BASE_URL}videos/hero-mobile.mp4`;
@@ -37,27 +39,31 @@ const posterImage = await getImage({ src: poster, width: 1280, format: "jpg" });
   <div
     class="hero-copy relative z-[2] flex min-h-[100svh] flex-col items-center justify-center text-center site-container pt-[var(--header-offset)] pb-10"
   >
-    <h1
-      class="reveal font-display text-[clamp(1.85rem,6.5vw,4.25rem)] font-bold text-white tracking-[0.06em] sm:tracking-[0.1em] md:tracking-[0.14em] leading-none [text-wrap:balance] pb-1"
+    <p
+      class="reveal text-[0.65rem] font-medium tracking-[0.22em] uppercase text-white/80 mb-5"
     >
-      <span class="block">Race-Ready Hyrox</span>
-      <span class="block"><span class="text-brand-yellow">Training</span> Built For You.</span>
+      {business.kicker}
+    </p>
+    <h1 class="reveal w-full max-w-5xl font-display font-normal text-white leading-none">
+      <PlaygroundWordmark variant="hero" class="w-full" />
     </h1>
     <p class="reveal reveal-delay-1 mt-6 text-sm md:text-base text-white/90 max-w-lg leading-relaxed tracking-wide">
-      Personal training for Hyrox and functional race prep — station work, running, and strength programmed so you show up ready.
+      Come for the training. Stay for the community.
     </p>
     <div class="reveal reveal-delay-2 hero-cta-group mt-8">
       <a
-        href="#gallery"
+        href="#about"
         class="hero-cta inline-flex items-center justify-center px-5 sm:px-6 py-3 text-[0.65rem] sm:text-xs font-medium tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white transition-colors"
       >
-        See training
+        About
       </a>
       <a
-        href="#contact"
+        href={business.instagram.url}
+        target="_blank"
+        rel="noopener noreferrer"
         class="hero-cta inline-flex items-center justify-center px-5 sm:px-6 py-3 text-[0.65rem] sm:text-xs font-medium tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white transition-colors"
       >
-        Book a session
+        Community
       </a>
     </div>
   </div>

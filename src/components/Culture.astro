@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets";
+import training from "../assets/images/training.png";
+import run from "../assets/images/hero-run.png";
+import wallBall from "../assets/images/wall-ball.png";
+import sandbag from "../assets/images/sandbag.png";
+
+const moments = [
+  {
+    src: training,
+    label: "Group sessions",
+    alt: "Athletes recovering together after a group session at The Playground",
+  },
+  {
+    src: run,
+    label: "Outdoor days",
+    alt: "Running outdoors with The Playground community",
+  },
+  {
+    src: wallBall,
+    label: "Challenges",
+    alt: "Wall-ball work during a Playground challenge",
+  },
+  {
+    src: sandbag,
+    label: "Events",
+    alt: "Sandbag carry at a Playground event",
+  },
+] as const;
+---
+
+<section id="culture" class="bg-brand-black w-full max-w-full overflow-hidden pb-[var(--section-space)]">
+  <div class="site-container w-full">
+    <div class="reveal section-heading">
+      <p class="text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/50 mb-3">02 / Culture</p>
+      <h2 class="poster-heading text-[clamp(2.75rem,9vw,5.75rem)] mb-4">
+        Culture & events
+      </h2>
+      <p class="text-white/65 max-w-md leading-relaxed text-sm md:text-base">
+        Show up, train hard, leave the ego at the door. Outdoor days, challenges, and gatherings give the group a reason to keep coming back.
+      </p>
+    </div>
+
+    <ul class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+      {
+        moments.map((moment, index) => (
+          <li class:list={["reveal", index === 1 && "reveal-delay-1", index === 2 && "reveal-delay-2"]}>
+            <figure class="relative aspect-[3/4] w-full overflow-hidden bg-brand-black">
+              <Image
+                src={moment.src}
+                alt={moment.alt}
+                widths={[400, 640, 900]}
+                sizes="(min-width: 1024px) 22vw, 45vw"
+                loading="lazy"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 pb-3 pt-10">
+                <span class="text-[0.65rem] font-medium tracking-[0.2em] uppercase text-white">
+                  {moment.label}
+                </span>
+              </figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

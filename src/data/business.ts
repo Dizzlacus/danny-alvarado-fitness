@@ -1,13 +1,15 @@
 export const business = {
-  name: "Danny Alvarado Fitness",
-  legalName: "Danny Alvarado Fitness",
+  name: "The Playground",
+  legalName: "The Playground",
+  tagline: "LIFT-RUN-PLAY",
+  kicker: "Training is better together.",
   description:
-    "Danny Alvarado Fitness — Hyrox and functional race-prep personal training. One-to-one coaching, race blocks, and group sessions.",
+    "The Playground is a training community — group workouts, outdoor sessions, challenges and events. Come for the training. Stay for the community.",
   telephone: "00000 000000",
   email: "hello@example.com",
   instagram: {
-    handle: "@dannyalvarado",
-    url: "https://www.instagram.com/dannyalvarado/",
+    handle: "@dannyalvarado90",
+    url: "https://www.instagram.com/dannyalvarado90/",
   },
   address: {
     streetAddress: "Studio TBD",
@@ -18,10 +20,10 @@ export const business = {
   mapsUrl: "https://www.google.com/maps",
   coach: {
     name: "Danny Alvarado",
-    bio: "Hyrox coach focused on race-ready strength, endurance, and station work. Placeholder bio — swap in the real story.",
+    bio: "Danny holds The Playground together — group sessions, outdoor work, and the kind of energy that makes people want to come back. No egos. Just a reason to show up.",
     instagram: {
-      handle: "@dannyalvarado",
-      url: "https://www.instagram.com/dannyalvarado/",
+      handle: "@dannyalvarado90",
+      url: "https://www.instagram.com/dannyalvarado90/",
     },
   },
 } as const;

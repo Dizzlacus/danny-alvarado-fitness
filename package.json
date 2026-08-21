@@ -1,7 +1,7 @@
 {
-  "name": "danny-alvarado-fitness",
+  "name": "the-playground",
   "version": "1.0.0",
-  "description": "Static site for Danny Alvarado Fitness — Hyrox personal training.",
+  "description": "Static site for The Playground — customised personal training. Lift, run, play.",
   "type": "module",
   "packageManager": "pnpm@10.11.1",
   "scripts": {

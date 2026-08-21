@@ -1,0 +1,24 @@
+---
+interface Props {
+  variant?: "compact" | "full" | "hero";
+  class?: string;
+}
+
+const { variant = "full", class: className = "" } = Astro.props;
+
+const nameSize =
+  variant === "hero"
+    ? "text-[clamp(3.4rem,13vw,7.5rem)]"
+    : "text-[clamp(2.4rem,9vw,5.75rem)]";
+---
+
+{
+  variant === "compact" ? (
+    <span class:list={["wordmark-compact text-white", className]}>The Playground</span>
+  ) : (
+    <span class:list={["inline-flex flex-col items-stretch text-white", className]}>
+      <span class:list={["wordmark-outline", nameSize]}>Playground</span>
+      <span class="wordmark-tagline">Lift-Run-Play</span>
+    </span>
+  )
+}

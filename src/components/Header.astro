@@ -1,19 +1,24 @@
+---
+import PlaygroundWordmark from "./PlaygroundWordmark.astro";
+---
+
 <header id="site-header" class="fixed top-0 inset-x-0 z-30">
   <div class="site-container flex items-center justify-between h-16 md:h-[4.5rem]">
     <a
       href="#home"
-      class="shrink-0 font-display text-sm md:text-base font-semibold tracking-[0.16em] uppercase text-white"
+      class="shrink-0 text-white"
+      aria-label="The Playground"
     >
-      Danny <span class="text-brand-yellow">Alvarado</span>
+      <PlaygroundWordmark variant="compact" class="text-sm md:text-base" />
     </a>
     <nav class="flex items-center justify-end gap-6">
-      <ul class="hidden md:flex items-center gap-8 text-xs font-medium tracking-[0.2em] uppercase text-white">
-        <li><a href="#gallery" class="nav-link">Training</a></li>
+      <ul class="hidden md:flex items-center gap-5 lg:gap-8 text-xs font-medium tracking-[0.2em] uppercase text-white">
         <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#pricing" class="nav-link">Pricing</a></li>
-        <li><a href="#reviews" class="nav-link">Reviews</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="#culture" class="nav-link">Culture</a></li>
+        <li><a href="#collab" class="nav-link">Collab</a></li>
+        <li><a href="#danny" class="nav-link">Danny</a></li>
+        <li><a href="#app" class="nav-link">App</a></li>
+        <li><a href="#transformation" class="nav-link">Transformation</a></li>
       </ul>
       <button
         id="nav-burger"
@@ -34,12 +39,12 @@
   </div>
   <div id="nav-mobile-panel" class="md:hidden border-t border-white/10 bg-brand-black/95 backdrop-blur-sm" aria-hidden="true">
     <ul class="site-container py-4 space-y-3 text-sm font-medium tracking-wide text-white">
-      <li><a href="#gallery" class="block py-2 hover:text-brand-yellow transition-colors">Training</a></li>
-      <li><a href="#about" class="block py-2 hover:text-brand-yellow transition-colors">About</a></li>
-      <li><a href="#pricing" class="block py-2 hover:text-brand-yellow transition-colors">Pricing</a></li>
-      <li><a href="#reviews" class="block py-2 hover:text-brand-yellow transition-colors">Reviews</a></li>
-      <li><a href="#contact" class="block py-2 hover:text-brand-yellow transition-colors">Contact</a></li>
-      <li><a href="#faq" class="block py-2 hover:text-brand-yellow transition-colors">FAQ</a></li>
+      <li><a href="#about" class="block py-2 hover:text-white/70 transition-colors">About</a></li>
+      <li><a href="#culture" class="block py-2 hover:text-white/70 transition-colors">Culture</a></li>
+      <li><a href="#collab" class="block py-2 hover:text-white/70 transition-colors">Collab</a></li>
+      <li><a href="#danny" class="block py-2 hover:text-white/70 transition-colors">Danny</a></li>
+      <li><a href="#app" class="block py-2 hover:text-white/70 transition-colors">App</a></li>
+      <li><a href="#transformation" class="block py-2 hover:text-white/70 transition-colors">Transformation</a></li>
     </ul>
   </div>
 </header>

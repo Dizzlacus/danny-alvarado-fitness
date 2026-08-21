@@ -1,0 +1,45 @@
+---
+import { Image } from "astro:assets";
+import { business } from "../data/business";
+import coach from "../assets/images/coach.png";
+---
+
+<section id="danny" class="bg-brand-black w-full max-w-full overflow-hidden pb-[var(--section-space)]">
+  <div class="site-container w-full">
+    <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center w-full min-w-0">
+      <div class="reveal">
+        <p class="text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/50 mb-3">04 / Danny Alvarado</p>
+        <h2 class="poster-heading text-[clamp(2.75rem,9vw,5.75rem)] mb-6">
+          Danny Alvarado
+        </h2>
+        <p class="text-white/65 leading-relaxed mb-4 text-sm md:text-base">
+          {business.coach.bio}
+        </p>
+        <p class="text-white/65 leading-relaxed mb-8 text-sm md:text-base">
+          Come for a session. Stay because the people make it easy to come back.
+        </p>
+        <a
+          href={business.coach.instagram.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-sm text-white hover:text-white/70 transition-colors"
+        >
+          {business.coach.instagram.handle}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="relative aspect-[3/4] md:aspect-[4/5] w-full max-w-[450px] md:ml-auto bg-brand-black overflow-hidden">
+          <Image
+            src={coach}
+            alt="Danny Alvarado coaching at The Playground"
+            widths={[400, 600, 900]}
+            sizes="(min-width: 768px) 450px, calc(100vw - 3rem)"
+            loading="lazy"
+            class="absolute inset-0 h-full w-full object-cover object-top"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

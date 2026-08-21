@@ -1,8 +1,7 @@
 ---
 import { getImage } from "astro:assets";
 import { business } from "../data/business";
-import { faqs } from "../data/faq";
-import ogSource from "../assets/images/sled-push.jpg";
+import ogSource from "../assets/images/sandbag.png";
 import "../styles/global.css";
 
 interface Props {
@@ -13,7 +12,7 @@ interface Props {
 }
 
 const {
-  title = "Danny Alvarado Fitness — Hyrox Personal Training",
+  title = "The Playground — Training is better together.",
   description = business.description,
   bodyClass = "",
   includeSchema = false,
@@ -54,18 +53,6 @@ const jsonLd = includeSchema
           description: business.description,
           publisher: { "@id": `${Astro.site}#business` },
         },
-        {
-          "@type": "FAQPage",
-          "@id": `${Astro.site}#faq`,
-          mainEntity: faqs.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
-            },
-          })),
-        },
       ],
     }
   : null;
@@ -103,16 +90,16 @@ const jsonLd = includeSchema
       rel="preload"
       as="font"
       type="font/woff2"
-      href="https://fonts.gstatic.com/s/oswald/v56/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiZQ.woff2"
+      href="https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXoo9WlhyyTh89Y.woff2"
       crossorigin
     />
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     {

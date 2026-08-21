@@ -1,0 +1,87 @@
+---
+import { Image } from "astro:assets";
+import { transformations } from "../data/transformations";
+---
+
+<section id="transformation" class="bg-brand-black w-full max-w-full overflow-hidden pb-[var(--section-space)]">
+  <div class="site-container w-full">
+    <div class="reveal section-heading">
+      <p class="text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/50 mb-3">06 / Transformation</p>
+      <h2 class="poster-heading text-[clamp(2.75rem,9vw,5.75rem)] mb-4">
+        The work shows
+      </h2>
+      <p class="text-white/65 max-w-md leading-relaxed text-sm md:text-base">
+        Stand-in names and numbers until real client stories are ready to publish. Drag the slider to compare.
+      </p>
+    </div>
+
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 lg:gap-8">
+      {
+        transformations.map((story, index) => (
+          <li class:list={["reveal", index === 1 && "reveal-delay-1", index === 2 && "reveal-delay-2"]}>
+            <article>
+              <figure class="ba-slider mb-4 w-full" data-ba-slider style="--pos: 50%">
+                <div class="ba-slider-layer">
+                  <Image
+                    src={story.after.src}
+                    alt={story.after.alt}
+                    widths={[400, 640, 900]}
+                    sizes="(min-width: 768px) 30vw, calc(100vw - 3rem)"
+                    loading="lazy"
+                    draggable="false"
+                    class="h-full w-full object-cover"
+                  />
+                  <span class="ba-slider-label ba-slider-label--after">After</span>
+                </div>
+                <div class="ba-slider-before">
+                  <Image
+                    src={story.before.src}
+                    alt={story.before.alt}
+                    widths={[400, 640, 900]}
+                    sizes="(min-width: 768px) 30vw, calc(100vw - 3rem)"
+                    loading="lazy"
+                    draggable="false"
+                    class="h-full w-full object-cover"
+                  />
+                  <span class="ba-slider-label ba-slider-label--before">Before</span>
+                </div>
+                <div class="ba-slider-handle" aria-hidden="true">
+                  <span class="ba-slider-knob">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M8 12H4m0 0l3-3m-3 3l3 3M16 12h4m0 0l-3-3m3 3l-3 3"></path>
+                    </svg>
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  class="ba-slider-range"
+                  min="0"
+                  max="100"
+                  value="50"
+                  aria-label={`Compare before and after for ${story.name}`}
+                />
+              </figure>
+              <p class="poster-heading text-xl md:text-2xl mb-3">
+                {story.name}
+              </p>
+              <dl class="space-y-1.5 text-sm">
+                <div class="flex gap-2">
+                  <dt class="shrink-0 text-[0.65rem] font-medium tracking-[0.2em] uppercase text-white/50 pt-0.5">
+                    Lost
+                  </dt>
+                  <dd class="text-white">{story.lost}</dd>
+                </div>
+                <div class="flex gap-2">
+                  <dt class="shrink-0 text-[0.65rem] font-medium tracking-[0.2em] uppercase text-white/50 pt-0.5">
+                    Goal
+                  </dt>
+                  <dd class="text-white/80 leading-relaxed">{story.goal}</dd>
+                </div>
+              </dl>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
